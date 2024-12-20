@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待办事项清单</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-light">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <!-- 顶部导航栏 -->
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 rounded mb-4">
+                            <div class="container-fluid">
+                                <span class="navbar-brand mb-0 h1">
+                                    <i class="bi bi-check2-square text-primary"></i> 
+                                    待办事项清单
+                                </span>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-3">
+                                        <i class="bi bi-person-circle"></i>
+                                        <span id="username" class="d-none d-sm-inline"></span>
+                                    </span>
+                                    <button onclick="logout()" class="btn btn-outline-danger btn-sm">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                        <span class="d-none d-sm-inline">登出</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </nav>
+
+                        <!-- 日期选择器 -->
+                        <div class="date-selector mb-4">
+                            <div class="input-group justify-content-center">
+                                <span class="input-group-text">
+                                    <i class="bi bi-calendar3"></i>
+                                </span>
+                                <input type="date" id="dateSelector" class="form-control" onchange="changeDate(this.value)">
+                            </div>
+                        </div>
+
+                        <!-- 添加待办事项表单 -->
+                        <div class="add-todo mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-pencil"></i>
+                                            </span>
+                                            <input type="text" id="todoInput" 
+                                                   class="form-control" 
+                                                   placeholder="输入新的待办事项..."
+                                                   onkeydown="if(event.keyCode === 13){addTodo()}">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-12 col-sm-5">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-clock"></i>
+                                                </span>
+                                                <input type="time" id="startTime" 
+                                                       class="form-control" 
+                                                       placeholder="开始时间"
+                                                       onkeydown="if(event.keyCode === 13){addTodo()}">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-5">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-clock-fill"></i>
+                                                </span>
+                                                <input type="time" id="endTime" 
+                                                       class="form-control" 
+                                                       placeholder="结束时间"
+                                                       onkeydown="if(event.keyCode === 13){addTodo()}">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-2">
+                                            <button onclick="addTodo()" class="btn btn-primary w-100">
+                                                <i class="bi bi-plus-lg"></i>
+                                                <span class="d-none d-sm-inline">添加</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 待办事项列表 -->
+                        <div class="todo-list">
+                            <ul id="todoList" class="list-group"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑模态框 -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">编辑待办事项</h5>
+                    <button type="button" class="btn-close" onclick="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">任务内容</label>
+                        <input type="text" id="editInput" class="form-control">
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label class="form-label">开始时间</label>
+                            <input type="time" id="editStartTime" class="form-control">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">结束时间</label>
+                            <input type="time" id="editEndTime" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="saveEdit()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html> 

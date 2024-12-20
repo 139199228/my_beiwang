@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 待办事项清单</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5">
+                        <h1 class="card-title text-center mb-4">
+                            <i class="bi bi-person-circle text-primary"></i>
+                            用户登录
+                        </h1>
+                        <div id="loginForm">
+                            <div class="mb-3">
+                                <label class="form-label">用户名</label>
+                                <input type="text" id="username" class="form-control" placeholder="请输入用户名">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">密码</label>
+                                <input type="password" id="password" class="form-control" placeholder="请输入密码">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button onclick="login()" class="btn btn-primary">登录</button>
+                                <button onclick="showRegister()" class="btn btn-outline-secondary">注册新账号</button>
+                            </div>
+                        </div>
+                        <div id="registerForm" style="display: none;">
+                            <div class="mb-3">
+                                <label class="form-label">用户名</label>
+                                <input type="text" id="regUsername" class="form-control" placeholder="请输入用户名">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">密码</label>
+                                <input type="password" id="regPassword" class="form-control" placeholder="请输入密码">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">确认密码</label>
+                                <input type="password" id="regPasswordConfirm" class="form-control" placeholder="请再次输入密码">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">验证码</label>
+                                <div class="input-group">
+                                    <input type="text" id="captcha" class="form-control" placeholder="请输入验证码">
+                                    <span class="input-group-text p-0 border-0">
+                                        <img id="captchaImage" style="height: 38px; cursor: pointer;" onclick="refreshCaptcha()">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button onclick="register()" class="btn btn-primary">注册</button>
+                                <button onclick="showLogin()" class="btn btn-outline-secondary">返回登录</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='auth.js') }}"></script>
+</body>
+</html> 
